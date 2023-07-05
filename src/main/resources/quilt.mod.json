@@ -1,25 +1,25 @@
 {
 	"schema_version": 1,
 	"quilt_loader": {
-		"group": "com.example",
-		"id": "example_mod",
+		"group": "io.github.goosum",
+		"id": "postbox",
 		"version": "${version}",
 		"metadata": {
-			"name": "Mod Name",
-			"description": "A short description of your mod.",
+			"name": "Postbox",
+			"description": "A simple mod for delivering packages to your friends.",
 			"contributors": {
-				"Your name here": "Owner"
+				"Your name here": "Goosum"
 			},
 			"contact": {
-				"homepage": "https://example.com/",
-				"issues": "https://github.com/QuiltMC/quilt-template-mod/issues",
-				"sources": "https://github.com/QuiltMC/quilt-template-mod"
+				"issues": "https://github.com/Goosum/Postbox/issues",
+				"sources": "https://github.com/Goosum/Postbox"
 			},
-			"icon": "assets/example_mod/icon.png"
+			"icon": "assets/example_mod/icon.png",
+			"license": "MIT"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "com.example.example_mod.ExampleMod"
+			"init": "io.github.goosum.postbox.Postbox"
 		},
 		"depends": [
 			{
@@ -36,5 +36,5 @@
 			}
 		]
 	},
-	"mixin": "example_mod.mixins.json"
+	"mixin": "postbox.mixins.json"
 }
