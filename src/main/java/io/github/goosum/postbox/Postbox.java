@@ -1,8 +1,11 @@
 package io.github.goosum.postbox;
 
 import io.github.goosum.postbox.block.BlockRegistry;
+import io.github.goosum.postbox.block.block_entity.PostboxBlockEntity;
 import io.github.goosum.postbox.item.ItemRegistry;
+import io.github.goosum.postbox.screen.ScreenRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -23,6 +26,7 @@ public class Postbox implements ModInitializer {
 	public void onInitialize(ModContainer mod) {
 		ItemRegistry.init(mod);
 		BlockRegistry.init(mod);
+		ScreenRegistry.init(mod);
 
 		Registry.register(Registries.ITEM_GROUP, new Identifier(mod.metadata().id(), "postbox"),
 				FabricItemGroup.builder()

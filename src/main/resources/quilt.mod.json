@@ -19,7 +19,8 @@
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "io.github.goosum.postbox.Postbox"
+			"init": "io.github.goosum.postbox.Postbox",
+			"client_init": "io.github.goosum.postbox.client.ClientRegistry"
 		},
 		"depends": [
 			{
