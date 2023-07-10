@@ -24,7 +24,7 @@ public class BlockRegistry {
 		PostboxBlockEntity.POSTBOX_BLOCK_ENTITY =
 				Registry.register(
 						Registries.BLOCK_ENTITY_TYPE,
-						new Identifier("postbox", "postbox_block_entity"),
+						new Identifier(mod.metadata().id(), "postbox_block_entity"),
 						QuiltBlockEntityTypeBuilder.create(PostboxBlockEntity::new, BlockRegistry.POSTBOX).build()
 				);
 	}
