@@ -8,7 +8,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -42,13 +41,13 @@ public class PostboxBlockEntity extends BlockEntity implements ImplementedInvent
 
 	@Override
 	public void writeNbt(NbtCompound nbt) {
-		Inventories.writeNbt(nbt, this.items);
 		super.writeNbt(nbt);
+		Inventories.writeNbt(nbt, this.items);
 	}
 
 	@Override
 	public Text getDisplayName() {
-		return Text.translatable(getCachedState().getBlock().getTranslationKey());
+		return Text.literal("Postbox");
 	}
 
 	@Nullable

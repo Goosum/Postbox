@@ -4,9 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.ShaderProgram;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -25,7 +23,7 @@ public class PostboxScreen extends HandledScreen<PostboxScreenHandler> {
 		RenderSystem.setShaderTexture(0, TEXTURE);
 		int x = (width - backgroundWidth) / 2;
 		int y = (height - backgroundHeight) / 2;
-		renderBackgroundTexture(graphics);
+		graphics.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
 	}
 
 	@Override
@@ -38,7 +36,7 @@ public class PostboxScreen extends HandledScreen<PostboxScreenHandler> {
 	@Override
 	protected void init() {
 		super.init();
-		titleX = backgroundWidth - textRenderer.getWidth(title) / 2;
+		titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
 	}
 
 }

@@ -1,12 +1,15 @@
 package io.github.goosum.postbox.block;
 
 import io.github.goosum.postbox.block.block_entity.PostboxBlockEntity;
+import io.github.goosum.postbox.screen.PostboxScreenHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerFactory;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
@@ -42,7 +45,7 @@ public class PostboxBlock extends HorizontalFacingBlock implements BlockEntityPr
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if(!world.isClient) {
-			NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+			NamedScreenHandlerFactory screenHandlerFactory = (NamedScreenHandlerFactory) world.getBlockEntity(pos);
 			if(screenHandlerFactory != null) {
 				player.openHandledScreen(screenHandlerFactory);
 			}
@@ -107,4 +110,5 @@ public class PostboxBlock extends HorizontalFacingBlock implements BlockEntityPr
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		return new PostboxBlockEntity(pos, state);
 	}
+
 }
