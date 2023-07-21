@@ -8,8 +8,10 @@ import org.quiltmc.loader.api.ModContainer;
 public class ScreenRegistry {
 
 	public static ScreenHandlerType<PostboxScreenHandler> POSTBOX_SCREEN_HANDLER;
+	public static ScreenHandlerType<EnvelopeScreenHandler> ENVELOPE_SCREEN_HANDLER;
 
 	public static void init(ModContainer mod) {
 		POSTBOX_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(mod.metadata().id(), "postbox_screen_handler"), PostboxScreenHandler::new);
+		ENVELOPE_SCREEN_HANDLER = ScreenHandlerRegistry.registerExtended(new Identifier(mod.metadata().id(), "envelope_screen_handler"), EnvelopeScreenHandler::new);
 	}
 }

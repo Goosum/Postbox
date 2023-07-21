@@ -8,10 +8,12 @@ import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 public class ItemRegistry {
-	public static final Item SEALED_ENVELOPE = new Item(new QuiltItemSettings());
+	public static final Item ENVELOPE = new EnvelopeItem(new QuiltItemSettings().maxCount(1));
+	public static final Item STAMP = new Item(new QuiltItemSettings());
 
 	public static void init(ModContainer mod) {
-		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "sealed_envelope"), ItemRegistry.SEALED_ENVELOPE);
+		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "sealed_envelope"), ItemRegistry.ENVELOPE);
+		Registry.register(Registries.ITEM, new Identifier(mod.metadata().id(), "stamp"), ItemRegistry.STAMP);
 	}
 
 }
