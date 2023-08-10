@@ -4,9 +4,13 @@ import io.github.goosum.postbox.block.block_entity.PostboxBlockEntity;
 import io.github.goosum.postbox.screen.PostboxScreenHandler;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerFactory;
@@ -58,7 +62,7 @@ public class PostboxBlock extends HorizontalFacingBlock implements BlockEntityPr
 		if(state.getBlock() != newState.getBlock()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos);
 			if(blockEntity instanceof PostboxBlockEntity) {
-				ItemScatterer.spawn(world, pos, (PostboxBlockEntity)blockEntity);
+				ItemScatterer.spawn(world, pos, (PostboxBlockEntity) blockEntity);
 				world.updateComparators(pos, this);
 			}
 			super.onStateReplaced(state, world, pos, newState, moved);
@@ -110,5 +114,14 @@ public class PostboxBlock extends HorizontalFacingBlock implements BlockEntityPr
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		return new PostboxBlockEntity(pos, state);
 	}
+
+	@Override
+	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+		if(!world.isClient()) {
+			PostboxBlockEntity.postboxNum++;
+		}
+		super.onPlaced(world, pos, state, placer, itemStack);
+	}
+
 
 }

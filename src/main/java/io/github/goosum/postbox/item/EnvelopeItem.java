@@ -1,10 +1,12 @@
 package io.github.goosum.postbox.item;
 
 import io.github.goosum.postbox.screen.EnvelopeScreenHandler;
+import io.github.goosum.postbox.util.EnvelopeInventoryUtils;
 import io.github.goosum.postbox.util.ImplementedInventory;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -25,12 +27,15 @@ public class EnvelopeItem extends Item implements ImplementedInventory {
 
 	private DefaultedList<ItemStack> sealedItem;
 
-	public boolean isSealed(EnvelopeItem envelope) {
-		if(!envelope.isEmpty()) {
-			return true;
-		} else {
-			return false;
+	public static boolean isSealed(ItemStack envelope) {
+		if(envelope.getItem() instanceof EnvelopeItem) {
+			if (envelope.hasNbt()) {
+				SimpleInventory inventory = new SimpleInventory(1);
+				EnvelopeInventoryUtils.fromTag(envelope.getNbt().getCompound("inventory"), inventory);
+				return !inventory.isEmpty();
+			}
 		}
+			return false;
 	}
 
 

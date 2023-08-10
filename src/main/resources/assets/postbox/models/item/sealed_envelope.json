@@ -2,5 +2,13 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "postbox:item/sealed_envelope"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "sealed": 1.0
+      },
+      "model": "postbox:item/open_envelope"
+    }
+  ]
 }

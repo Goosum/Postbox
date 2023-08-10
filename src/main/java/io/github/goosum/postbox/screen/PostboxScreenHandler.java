@@ -70,4 +70,7 @@ public class PostboxScreenHandler extends ScreenHandler {
 	public boolean canUse(PlayerEntity player) {
 		return this.inventory.canPlayerUse(player);
 	}
+
+
+
 }

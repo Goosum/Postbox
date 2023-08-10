@@ -29,11 +29,10 @@ public class Postbox implements ModInitializer {
 		Registry.register(Registries.ITEM_GROUP, new Identifier(mod.metadata().id(), "postbox"),
 				FabricItemGroup.builder()
 						.name(Text.literal("Postbox"))
-						.icon(() -> new ItemStack(ItemRegistry.ENVELOPE))
+						.icon(() -> new ItemStack(BlockRegistry.POSTBOX))
 						.entries((pDisplayParameters, pStackCollector) -> {
 							pStackCollector.addStack(ItemRegistry.ENVELOPE.getDefaultStack());
 							pStackCollector.addStack(BlockRegistry.POSTBOX.asItem().getDefaultStack());
-							pStackCollector.addStack(ItemRegistry.STAMP.getDefaultStack());
 						})
 						.build());
 	}

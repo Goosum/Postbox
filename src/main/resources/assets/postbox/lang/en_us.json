@@ -1,6 +1,5 @@
 {
-  "item.postbox.sealed_envelope": "Sealed Envelope",
-  "item.postbox.stamp": "Stamp",
+  "item.postbox.sealed_envelope": "Envelope",
   "itemGroup.postbox.postbox": "Postbox",
   "block.postbox.postbox": "Postbox"
 }
