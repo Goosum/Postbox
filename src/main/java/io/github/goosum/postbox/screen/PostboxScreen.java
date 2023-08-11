@@ -3,15 +3,28 @@ package io.github.goosum.postbox.screen;
 import com.mojang.blaze3d.platform.InputUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.goosum.postbox.block.block_entity.PostboxBlockEntity;
+import io.github.goosum.postbox.networking.PostboxPackets;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.BlockStateRaycastContext;
+import net.minecraft.world.RaycastContext;
+import org.quiltmc.qsl.networking.api.PacketByteBufs;
+import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 
 public class PostboxScreen extends HandledScreen<PostboxScreenHandler> {
 
@@ -54,15 +67,27 @@ public class PostboxScreen extends HandledScreen<PostboxScreenHandler> {
 		addDrawableChild(nameBar);
 	}
 
-	public String getText() {
-		return nameBar.getText();
+	@Override
+	public void closeScreen() {
+		rename();
+		super.closeScreen();
 	}
 
-	public void setText(String string) {
-		nameBar.setText(string);
-	}
+	private void rename() {
+		String nameBarText = nameBar.getText();
+		PacketByteBuf bufName = PacketByteBufs.create();
 
-	public boolean isNameBarActive() {
-		return nameBar.isActive();
+		//PacketByteBuf bufPos = PacketByteBufs.create();
+
+		HitResult postboxHit = MinecraftClient.getInstance().crosshairTarget;
+		assert postboxHit != null;
+		if(postboxHit.getType() == HitResult.Type.BLOCK) {
+			BlockHitResult blockHitResult = ((BlockHitResult) postboxHit);
+			BlockPos postboxPos = blockHitResult.getBlockPos();
+			nameBarText = nameBarText + postboxPos.toString();
+		}
+		bufName.writeString(nameBarText);
+		ClientPlayNetworking.send(PostboxPackets.POSTBOX_NAME, bufName);
+
 	}
 }
