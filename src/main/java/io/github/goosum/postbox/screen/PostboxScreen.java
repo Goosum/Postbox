@@ -62,7 +62,15 @@ public class PostboxScreen extends HandledScreen<PostboxScreenHandler> {
 	}
 
 	private void setupNameTextField() {
-		this.nameBar = new TextFieldWidget(textRenderer, this.x + 35, this.y + 11, 101, 10, title);
+		this.nameBar = new TextFieldWidget(textRenderer, this.x + 35, this.y + 11, 101, 10, title) {
+			@Override
+			public boolean mouseClicked(double mouseX, double mouseY, int button) {
+				if(mouseX < this.getX() || mouseX > (this.getX() + 10) || mouseY < this.getY() || (mouseY > this.getY() + 101)) {
+					this.setFocused(false);
+				}
+				return super.mouseClicked(mouseX, mouseY, button);
+			}
+		};
 		this.nameBar.setText(title.getString());
 		addDrawableChild(nameBar);
 	}
@@ -88,6 +96,15 @@ public class PostboxScreen extends HandledScreen<PostboxScreenHandler> {
 		}
 		bufName.writeString(nameBarText);
 		ClientPlayNetworking.send(PostboxPackets.POSTBOX_NAME, bufName);
+	}
 
+
+	@Override
+	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+		if(keyCode == 256) {
+			this.closeScreen();
+		}
+
+		return !this.nameBar.keyPressed(keyCode, scanCode, modifiers) && !this.nameBar.isActive() ? super.keyPressed(keyCode, scanCode, modifiers) : true;
 	}
 }
