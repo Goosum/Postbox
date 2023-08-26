@@ -14,6 +14,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
@@ -57,8 +58,7 @@ public class PostboxScreen extends HandledScreen<PostboxScreenHandler> {
 	protected void init() {
 		super.init();
 		setupNameTextField();
-		titleX = this.x + 35;
-		titleY = this.y + 11;
+		title.setStyle(Style.EMPTY.withColor(13027014));
 	}
 
 	private void setupNameTextField() {

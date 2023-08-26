@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -26,6 +27,9 @@ public class EnvelopeItem extends Item implements ImplementedInventory {
 	}
 
 	private DefaultedList<ItemStack> sealedItem;
+
+	private String address = "";
+	private String sender = "";
 
 	public static boolean isSealed(ItemStack envelope) {
 		if(envelope.getItem() instanceof EnvelopeItem) {
@@ -46,7 +50,11 @@ public class EnvelopeItem extends Item implements ImplementedInventory {
 			user.openHandledScreen(new ExtendedScreenHandlerFactory() {
 				@Override
 				public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-					buf.writeItemStack(user.getStackInHand(hand));
+					ItemStack stack = user.getStackInHand(hand);
+					if(stack.getItem() instanceof EnvelopeItem envelope) {
+						buf.writeItemStack(stack);
+						buf.writeNbt(envelope.createEnvelopeNbt());
+					}
 				}
 
 				@Override
@@ -71,4 +79,18 @@ public class EnvelopeItem extends Item implements ImplementedInventory {
 		return sealedItem;
 	}
 
+	public NbtCompound createEnvelopeNbt() {
+		NbtCompound tag = new NbtCompound();
+		tag.putString("address", address);
+		tag.putString("sender", sender);
+		return tag;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
 }

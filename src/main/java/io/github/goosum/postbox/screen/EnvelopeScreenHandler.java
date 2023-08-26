@@ -14,8 +14,18 @@ public class EnvelopeScreenHandler extends ScreenHandler {
 
 	private final SimpleInventory inventory;
 
+	private String address = "";
+
+	private String sender = "";
+
+
 	public EnvelopeScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
 		this(syncId, playerInventory, buf.readItemStack());
+		NbtCompound tag = buf.readNbt();
+		String tempAddress = tag.getString("address");
+		String tempSender = tag.getString("sender");
+		this.setAddress(tempAddress);
+		this.setSender(tempSender);
 	}
 
 	public EnvelopeScreenHandler(int syncId, PlayerInventory playerInventory, ItemStack itemStack) {
@@ -78,5 +88,21 @@ public class EnvelopeScreenHandler extends ScreenHandler {
 	@Override
 	public boolean canUse(PlayerEntity player) {
 		return this.inventory.canPlayerUse(player);
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getSender() {
+		return sender;
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 }
