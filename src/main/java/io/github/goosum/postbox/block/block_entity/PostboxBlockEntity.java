@@ -31,6 +31,7 @@ public class PostboxBlockEntity extends BlockEntity implements ImplementedInvent
 
 	public static ArrayList<String> names = new ArrayList<>();
 
+
 	public static BlockEntityType<PostboxBlockEntity> POSTBOX_BLOCK_ENTITY;
 
 	public PostboxBlockEntity(BlockPos blockPos, BlockState blockState) {

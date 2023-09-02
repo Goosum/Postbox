@@ -1,5 +1,6 @@
 package io.github.goosum.postbox.client;
 
+import io.github.goosum.postbox.entity.renderer.RendererRegistry;
 import io.github.goosum.postbox.item.EnvelopeItem;
 import io.github.goosum.postbox.item.ItemRegistry;
 import io.github.goosum.postbox.screen.EnvelopeScreen;
@@ -18,6 +19,8 @@ public class ClientRegistry implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 		HandledScreens.register(ScreenRegistry.POSTBOX_SCREEN_HANDLER, PostboxScreen::new);
 		HandledScreens.register(ScreenRegistry.ENVELOPE_SCREEN_HANDLER, EnvelopeScreen::new);
+
+		RendererRegistry.init();
 
 		ModelPredicateProviderRegistry.register(ItemRegistry.ENVELOPE, new Identifier("sealed"), (itemStack, clientWorld, livingEntity, i) -> {
 			if(EnvelopeItem.isSealed(itemStack)) {

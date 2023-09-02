@@ -20,6 +20,9 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EnvelopeItem extends Item implements ImplementedInventory {
 
 	public EnvelopeItem(Settings settings) {
@@ -30,6 +33,7 @@ public class EnvelopeItem extends Item implements ImplementedInventory {
 
 	private String address = "";
 	private String sender = "";
+
 
 	public static boolean isSealed(ItemStack envelope) {
 		if(envelope.getItem() instanceof EnvelopeItem) {
